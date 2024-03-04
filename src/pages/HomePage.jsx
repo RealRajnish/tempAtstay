@@ -9,9 +9,9 @@ const HomePage = () => {
   return (
     <>
       <LowerNavbar />
-      <Slide />
-      <Categories />
       <Listings />
+      {/* <Slide /> */}
+      <Categories />
       <Footer />
     </>
   );

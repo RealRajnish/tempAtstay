@@ -14,6 +14,9 @@ import SearchPage from "./pages/SearchPage";
 import HostLogin from "./pages/host/HostLogin";
 import HostRegister from "./pages/host/HostRegister";
 import Navbar from "./components/Navbar";
+import BookingPage from "./pages/booking/BookingPage";
+import BookingForm from "./pages/booking/BookingForm";
+import CartDetailsPage from "./pages/temp/CartDetailsPage";
 
 function App() {
   return (
@@ -37,6 +40,9 @@ function App() {
           <Route path="/:userId/wishList" element={<WishList />} />
           <Route path="/:userId/properties" element={<PropertyList />} />
           <Route path="/:userId/reservations" element={<ReservationList />} />
+          <Route path="/bookingPage" element={<BookingPage />} />
+          <Route path="/bookingForm" element={<BookingForm />} />
+          <Route path="/cartDetailsPage" element={<CartDetailsPage />} />
         </Routes>
       </BrowserRouter>
     </div>

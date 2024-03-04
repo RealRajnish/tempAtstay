@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import Footer from "../components/Footer";
 import { API_10, API_11, API_3, API_9 } from "../api/api";
-import { setHostData } from "../redux/state";
+import { setBookingData, setHostData } from "../redux/state";
 
 const ListingDetails = () => {
   const [loading, setLoading] = useState(true);
@@ -21,6 +21,7 @@ const ListingDetails = () => {
   const [endDate, setEndDate] = useState();
   const [datesArray, setDatesArray] = useState([]);
   const [listing, setListing] = useState(null);
+  const [availability, setAvailability] = useState("");
   // const [date,setDate]=useState([])
 
   const dispatch = useDispatch();
@@ -59,6 +60,49 @@ const ListingDetails = () => {
   }, []);
 
   // console.log(listing);
+
+  const handleAvailability = async () => {
+    try {
+      if (datesArray) {
+        if (listing?.type === "An entire place") {
+          const resp = await axios.post(API_10, {
+            date: datesArray,
+            type: "An entire place",
+            hotelId: "2bmiyu1e0slsylsju",
+          });
+          // console.log("resp", resp?.data);
+          if (resp?.data.code == 2) {
+            // console.log(resp?.data);
+            // console.log("inside availability not found");
+            setAvailability("Not Available");
+          }
+          if (resp?.data?.availability[0].bookingStatus === false) {
+            setAvailability("Available");
+          } else if (resp?.data?.availability[0].bookingStatus) {
+            setAvailability("Not Available");
+          }
+
+          // console.log("Response", listing);
+        } else if (listing?.type === "Rooms") {
+          const response = await axios.post(API_10, {
+            date: datesArray,
+            type: "Rooms",
+            hotelId: "2bmiyu1e0slsylsj0u",
+            roomType: "Standard",
+            roomNum: 6,
+          });
+          if (response) {
+            console.log(response);
+          }
+        }
+      } else {
+        window.alert("please select date range");
+      }
+      // console.log("listing", listing);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   /* BOOKING CALENDAR */
   const [dateRange, setDateRange] = useState([
@@ -142,23 +186,31 @@ const ListingDetails = () => {
       const bookingForm = {
         customerId,
         listingId,
-        hostId: listing.creator._id,
+        hostId: listing.hostId,
         startDate: dateRange[0].startDate.toDateString(),
         endDate: dateRange[0].endDate.toDateString(),
         totalPrice: listing.price * dayCount,
+        type: "Rooms",
+        roomType: selectRoom,
+        roomCount: 5,
       };
 
-      const response = await fetch("http://localhost:3001/bookings/create", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(bookingForm),
-      });
+      console.log("handleSubmit button clicked", bookingForm);
+      dispatch(setBookingData({ bookingData: bookingForm }));
 
-      if (response.ok) {
-        navigate(`/${customerId}/trips`);
-      }
+      // const response = await fetch("http://localhost:3001/bookings/create", {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify(bookingForm),
+      // });
+
+      // if (response.ok) {
+      //   navigate(`/${customerId}/trips`);
+      // }
+      // navigate("/bookingPage");
+      navigate("/cartDetailspage");
     } catch (err) {
       console.log("Submit Booking Failed.", err.message);
     }
@@ -278,6 +330,14 @@ const ListingDetails = () => {
                   Double
                 </button>
                 <button onClick={() => setSelectedRoom("delux")}>Delux</button>
+              </div>
+              <div className="availability-container">
+                <div className="button" style={{ backgroundColor: "white" }}>
+                  <button onClick={() => handleAvailability()}>
+                    Check Availability
+                  </button>
+                </div>
+                <div className="text">{availability}</div>
               </div>
               <h2>Total price: ${price * dayCount}</h2>
               <p>CheckIn Date: {dateRange[0].startDate.toDateString()}</p>

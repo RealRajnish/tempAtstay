@@ -41,9 +41,9 @@ const CreateListing = () => {
   const [bathroomCount, setBathroomCount] = useState(1);
 
   // selecting room types
-  const [singleRoom, setSingleRoom] = useState(0);
+  const [standardRoom, setStandardRoom] = useState(0);
   const [doubleRoom, setDoubleRoom] = useState(0);
-  const [DeluxRoom, setDeluxRoom] = useState(0);
+  const [deluxeRoom, setDeluxeRoom] = useState(0);
   // const handleChange = (index, event) => {
   //   const { name, value } = event.target;
   //   setRoomTypes((prevRooms) => {
@@ -180,9 +180,9 @@ const CreateListing = () => {
       listingForm.append("bedroomCount", bedroomCount);
       listingForm.append("bedCount", bedCount);
       listingForm.append("bathroomCount", bathroomCount);
-      listingForm.append("singleRoom", singleRoom);
+      listingForm.append("singleRoom", standardRoom);
       listingForm.append("doubleRoom", doubleRoom);
-      listingForm.append("deluxRoom", DeluxRoom);
+      listingForm.append("deluxeRoom", deluxeRoom);
       photos.forEach((photo) => {
         listingForm.append("listingPhotos", photo);
       });
@@ -583,15 +583,15 @@ const CreateListing = () => {
                 >
                   <p>Select Rooms with Price</p>
                   <div className="rooms">
-                    <label htmlFor="single">Single</label>
+                    <label htmlFor="standard">Standard</label>
                     <input
                       type="number"
                       placeholder="Enter per night price"
                       name="price"
                       className="price"
-                      id="single"
-                      value={singleRoom}
-                      onChange={(e) => setSingleRoom(e.target.value)}
+                      id="standard"
+                      value={standardRoom}
+                      onChange={(e) => setStandardRoom(e.target.value)}
                     />
                   </div>
                   <div className="rooms">
@@ -607,15 +607,15 @@ const CreateListing = () => {
                     />
                   </div>
                   <div className="rooms">
-                    <label htmlFor="Delux">Delux</label>
+                    <label htmlFor="deluxe">Delux</label>
                     <input
                       type="number"
                       placeholder="Enter per night price"
                       name="price"
                       className="price"
-                      id="delux"
-                      value={DeluxRoom}
-                      onChange={(e) => setDeluxRoom(e.target.value)}
+                      id="deluxe"
+                      value={deluxeRoom}
+                      onChange={(e) => setDeluxeRoom(e.target.value)}
                     />
                   </div>
                   {/*  {roomTypes.map((room, index) => (

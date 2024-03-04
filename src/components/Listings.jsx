@@ -42,7 +42,7 @@ const Listings = () => {
 
   return (
     <>
-      <div className="category-list">
+      {/* <div className="category-list">
         {categories?.map((category, index) => (
           <div
             className={`category ${
@@ -55,7 +55,7 @@ const Listings = () => {
             <p>{category.label}</p>
           </div>
         ))}
-      </div>
+      </div> */}
 
       {loading ? (
         <Loader />
@@ -92,6 +92,20 @@ const Listings = () => {
           )}
         </div>
       )}
+      {/* <div className="category-list">
+        {categories?.map((category, index) => (
+          <div
+            className={`category ${
+              category.label === selectedCategory ? "selected" : ""
+            }`}
+            key={index}
+            onClick={() => setSelectedCategory(category.label)}
+          >
+            <div className="category_icon">{category.icon}</div>
+            <p>{category.label}</p>
+          </div>
+        ))}
+      </div> */}
     </>
   );
 };
