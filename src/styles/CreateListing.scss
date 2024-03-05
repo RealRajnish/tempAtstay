@@ -24,7 +24,8 @@
     }
 
     h2 {
-      color: $pinkred;
+      // color: #67c7b9;
+      color: #67c7b9;
     }
 
     hr {
@@ -76,13 +77,13 @@
         }
 
         &:hover {
-          border: 2px solid $pinkred;
+          border: 2px solid #67c7b9;
           background-color: $lightgrey;
         }
       }
 
       .selected {
-        border: 2px solid $pinkred;
+        border: 2px solid #67c7b9;
         background-color: $lightgrey;
       }
     }
@@ -116,13 +117,13 @@
         }
 
         &:hover {
-          border: 2px solid $pinkred;
+          border: 2px solid #67c7b9;
           background-color: $lightgrey;
         }
       }
 
       .selected {
-        border: 2px solid $pinkred;
+        border: 2px solid #67c7b9;
         background-color: $lightgrey;
       }
     }
@@ -201,7 +202,7 @@
     }
 
     h2 {
-      color: $pinkred;
+      color: #67c7b9;
     }
 
     hr {
@@ -239,13 +240,13 @@
         }
 
         &:hover {
-          border: 2px solid $pinkred;
+          border: 2px solid #67c7b9;
           background-color: $lightgrey;
         }
       }
 
       .selected {
-        border: 2px solid $pinkred;
+        border: 2px solid #67c7b9;
         background-color: $lightgrey;
       }
     }
@@ -277,7 +278,7 @@
           cursor: pointer;
 
           &:hover {
-            color: $pinkred;
+            color: #67c7b9;
           }
         }
       }
@@ -387,4 +388,13 @@
       box-shadow: 0 0 10px 3px rgb(117, 117, 117);
     }
   }
+}
+
+.create-listing_step2 .description .price {
+  width: 125px;
+}
+
+.description textarea {
+  width: 300px !important;
+  height: 300px !important;
 }

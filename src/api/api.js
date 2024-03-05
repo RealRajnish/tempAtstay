@@ -10,7 +10,15 @@ const API_8 = "http://localhost:5000/properties?category="; //for getting data u
 const API_9 = "http://localhost:5000/properties/"; // for getting particular property using id
 const API_10 = "http://localhost:5000/api/availability/particular-room";
 const API_11 = "http://localhost:5000/api/hostInfo";
+const API_12 = "http://localhost:5000/Order";
+const API_13 = "http://localhost:5000/key";
+const API_14 = "http://localhost:5000/verification";
 
+const API_15 = "http://localhost:5000/Order";
+const API_16 = "http://localhost:5000/key";
+const API_17 = "http://localhost:5000/verification";
+const API_18 = "http://localhost:5000/saveDataToDatabase1";
+const API_19 = "http://localhost:5000/sendInvoiceByEmail";
 // for production
 
 export {
@@ -25,4 +33,12 @@ export {
   API_9,
   API_10,
   API_11,
+  API_12,
+  API_13,
+  API_14,
+  API_15,
+  API_16,
+  API_17,
+  API_18,
+  API_19,
 };
