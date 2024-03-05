@@ -190,11 +190,15 @@ const ListingDetails = () => {
         startDate: dateRange[0].startDate.toDateString(),
         endDate: dateRange[0].endDate.toDateString(),
         totalPrice: listing.price * dayCount,
-        type: "Rooms",
+        type: listing.type,
         roomType: selectRoom,
         roomCount: 5,
+        totalRoomPrice: price * dayCount,
+        dayCount: dayCount,
+        perRoomPrice: price,
+        temp: "temp",
       };
-
+      console.log("dayCount", dayCount);
       console.log("handleSubmit button clicked", bookingForm);
       dispatch(setBookingData({ bookingData: bookingForm }));
 
@@ -311,11 +315,11 @@ const ListingDetails = () => {
               <DateRange ranges={dateRange} onChange={handleSelect} />
               {dayCount > 1 ? (
                 <h2>
-                  ${price} x {dayCount} nights
+                  Rs. {price} x {dayCount} nights
                 </h2>
               ) : (
                 <h2>
-                  ${price} x {dayCount} night
+                  Rs. {price} x {dayCount} night
                 </h2>
               )}
 
@@ -346,6 +350,7 @@ const ListingDetails = () => {
               <button className="button" type="submit" onClick={handleSubmit}>
                 BOOKING
               </button>
+              <div>day: {dayCount}</div>
             </div>
           </div>
         </div>

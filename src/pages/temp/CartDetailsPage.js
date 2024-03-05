@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // import Navbar from "./Navbar";
 import { useParams } from "react-router-dom";
 // import { productData1 } from "./Atstaynextdata";
@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import "./CartDetailspage.css";
 import { API_15, API_16, API_17, API_18 } from "../../api/api";
 import { useSelector } from "react-redux";
+import "../../styles/form.css";
 
 export default function CartDetailsPage() {
   const bookingData = useSelector((state) => state.bookingData);
@@ -31,7 +32,11 @@ export default function CartDetailsPage() {
 
   const amunt = room * diff;
   console.log(amunt);
-  const amunt2 = amunt * bookingData.totalPrice;
+  const amunt2 =
+    amunt *
+    (bookingData.type === "Rooms"
+      ? bookingData.totalRoomPrice
+      : bookingData.totalPrice);
   console.log(amunt2);
   //   console.log(mm1[0].price);
 
@@ -49,7 +54,7 @@ export default function CartDetailsPage() {
   const adult1 = parseInt(localStorage.getItem("adult")) || 0;
   const children = parseInt(localStorage.getItem("child")) || 0;
   const selectedDate = localStorage.getItem("selectedDate") || "";
-  const amount = localStorage.getItem("amunt") || "";
+  const amount = bookingData.perRoomPrice * bookingData.dayCount;
   const adds = localStorage.setItem("add", add) || "";
   const mails = localStorage.setItem("mail", mail) || "";
   const phones = localStorage.setItem("phone", phone) || "";
@@ -63,9 +68,13 @@ export default function CartDetailsPage() {
 
   // const navigate = useNavigate()
 
+  useEffect(() => {
+    const show = document.querySelector(".showsss");
+    show.style.display = "none";
+  }, []);
   const showsss = () => {
     const show = document.querySelector(".showsss");
-    show.style.display = "block";
+    show.style.display = "flex";
     show.style.overflow = "hidden"; // Enable scrolling for the specific element
   };
 
@@ -75,7 +84,9 @@ export default function CartDetailsPage() {
   };
 
   const checkout = async (amount) => {
-    localStorage.setItem("amount", amount); // Set the 'amount' in localStorage\
+    localStorage.setItem("amount", amount);
+    console.log(amount);
+    // Set the 'amount' in localStorage\
     try {
       if (phone.length === 10) {
         var data1 = await fetch(API_15, {
@@ -269,8 +280,8 @@ export default function CartDetailsPage() {
                       </div>
 
                       <div className="numberofdaysss">
-                        {diff} Days to Stay = {diff} x {elm.totalPrice} ={" "}
-                        {diff * elm.totalPrice}
+                        {diff} Days to Stay = {elm.dayCount} x{" "}
+                        {elm.perRoomPrice} = {elm.dayCount * elm.perRoomPrice}
                       </div>
 
                       <div className="bookingDetails my-3">
@@ -281,7 +292,7 @@ export default function CartDetailsPage() {
                           = {room * diff * elm.price}
                         </p> */}
                         <div className="total">
-                          Total amount : ₹ {room * diff * elm.totalPrice}
+                          Total amount : ₹ {elm.dayCount * elm.perRoomPrice}
                         </div>
                       </div>
                     </div>
@@ -289,7 +300,7 @@ export default function CartDetailsPage() {
                       className="Pricesss "
                       style={{ fontSize: "25px", marginLeft: "45px" }}
                     >
-                      ₹ {elm.price}
+                      {elm.price}
                     </div>
                   </div>
                 </div>
@@ -313,12 +324,12 @@ export default function CartDetailsPage() {
                     >
                       <div className="d-flex justify-content-between my-3">
                         <span>Subtotal</span>
-                        <span>₹ {room * diff * elm.totalPrice}</span>
+                        <span>₹ {elm.dayCount * elm.perRoomPrice}</span>
                       </div>
 
                       <div className="d-flex justify-content-between">
                         <span>Total</span>
-                        <span>₹ {room * diff * elm.totalPrice}</span>
+                        <span>₹ {elm.dayCount * elm.perRoomPrice}</span>
                       </div>
 
                       <center>
@@ -338,7 +349,13 @@ export default function CartDetailsPage() {
       </div>
 
       <div className="showsss" id="form-container">
-        <div style={{ background: "rgba(0,0,0,0.8)" }}>
+        <div
+          style={{
+            background: "rgba(0,0,0,0.8)",
+            minHeight: "80vh",
+            width: "32%",
+          }}
+        >
           <form
             onSubmit={(e) => {
               e.preventDefault();

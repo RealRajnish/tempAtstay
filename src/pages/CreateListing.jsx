@@ -650,7 +650,7 @@ const CreateListing = () => {
                   style={{ display: type === "Rooms" ? "none" : "" }}
                 >
                   <p>Enter Price</p>
-                  <span>$</span>
+                  <span>Rs.</span>
                   <input
                     type="number"
                     placeholder="100"
@@ -659,6 +659,7 @@ const CreateListing = () => {
                     onChange={handleChangeDescription}
                     className="price"
                     required
+                    // width="125px"
                   />
                 </div>
               </div>

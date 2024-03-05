@@ -18,6 +18,7 @@ const API_15 = "http://localhost:5000/Order";
 const API_16 = "http://localhost:5000/key";
 const API_17 = "http://localhost:5000/verification";
 const API_18 = "http://localhost:5000/saveDataToDatabase1";
+const API_19 = "http://localhost:5000/sendInvoiceByEmail";
 // for production
 
 export {
@@ -39,4 +40,5 @@ export {
   API_16,
   API_17,
   API_18,
+  API_19,
 };
