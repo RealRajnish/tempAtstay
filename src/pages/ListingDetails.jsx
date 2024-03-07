@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import Footer from "../components/Footer";
 import { API_10, API_11, API_3, API_9 } from "../api/api";
-import { setBookingData, setHostData } from "../redux/state";
+import { setBookingData, setTempHostData } from "../redux/state";
 
 const ListingDetails = () => {
   const [loading, setLoading] = useState(true);
@@ -30,7 +30,7 @@ const ListingDetails = () => {
   const getHostInfo = async () => {
     try {
       const resp = await axios.post(API_11, { id: listing.hostId });
-      dispatch(setHostData({ host: resp.data }));
+      dispatch(setTempHostData({ tempHost: resp.data }));
       console.log(resp.data);
     } catch (error) {
       console.log(error);
@@ -124,7 +124,7 @@ const ListingDetails = () => {
 
   /* SUBMIT BOOKING */
   const customerId = useSelector((state) => state?.user?._id);
-  const host = useSelector((state) => state?.host);
+  const tempHost = useSelector((state) => state?.tempHost);
 
   const navigate = useNavigate();
 
@@ -277,8 +277,8 @@ const ListingDetails = () => {
             )}`}
           />*/}
           <h3>
-            Hosted by {host ? host.firstName : "firstname"}{" "}
-            {host ? host.lastName : "lastNAme"}
+            Hosted by {tempHost ? tempHost.firstName : "firstname"}{" "}
+            {tempHost ? tempHost.lastName : "lastNAme"}
           </h3>
         </div>
         <hr />
@@ -350,7 +350,6 @@ const ListingDetails = () => {
               <button className="button" type="submit" onClick={handleSubmit}>
                 BOOKING
               </button>
-              <div>day: {dayCount}</div>
             </div>
           </div>
         </div>

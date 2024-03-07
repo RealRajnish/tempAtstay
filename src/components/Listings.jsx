@@ -6,6 +6,7 @@ import Loader from "./Loader";
 import { useDispatch, useSelector } from "react-redux";
 import { setListings } from "../redux/state";
 import { API_7 } from "../api/api";
+import LowerNavbar from "./LowerNavbar";
 
 const Listings = () => {
   const dispatch = useDispatch();
@@ -19,7 +20,7 @@ const Listings = () => {
     try {
       const response = await fetch(
         selectedCategory !== "All"
-          ? `http://localhost:3001/properties?category=${selectedCategory}`
+          ? `http://localhost:5000/properties?category=${selectedCategory}`
           : API_7,
         {
           method: "GET",
@@ -56,6 +57,7 @@ const Listings = () => {
           </div>
         ))}
       </div> */}
+      <LowerNavbar setSelectedCategory={setSelectedCategory} />
 
       {loading ? (
         <Loader />

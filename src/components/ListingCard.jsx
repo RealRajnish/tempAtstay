@@ -8,7 +8,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setWishList } from "../redux/state";
-import { API_1, API_3 } from "../api/api";
+import { API_1, API_20, API_3 } from "../api/api";
 
 const ListingCard = ({
   listingId,
@@ -45,22 +45,25 @@ const ListingCard = ({
 
   /* ADD TO WISHLIST */
   const user = useSelector((state) => state.user);
-  const wishList = user?.wishList || [];
+  console.log("user", user);
+  const wishlist = user?.wishList || [];
 
-  const isLiked = wishList?.find((item) => item?._id === listingId);
+  console.log("wishlist", wishlist);
+  const isLiked = wishlist?.find((item) => item.toString() === listingId);
+  console.log("isLiked for ", listingId, " ", isLiked);
+  // let isLiked;
 
   const patchWishList = async () => {
+    console.log("user", user);
     if (user?._id !== creator._id) {
-      const response = await fetch(
-        `http://localhost:3001/users/${user?._id}/${listingId}`,
-        {
-          method: "PATCH",
-          header: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await fetch(`${API_20}${user?._id}/${listingId}`, {
+        method: "PATCH",
+        header: {
+          "Content-Type": "application/json",
+        },
+      });
       const data = await response.json();
+      console.log("Response data", data);
       dispatch(setWishList(data.wishList));
     } else {
       return;

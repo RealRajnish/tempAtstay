@@ -9,8 +9,8 @@ import { setHostLogout, setLogout } from "../redux/state";
 import UpperNavbar from "./UpperNavbar";
 import LowerNavbar from "./LowerNavbar";
 
-const Navbar = () => {
-  const [dropdownMenu, setDropdownMenu] = useState(false);
+const Navbar = ({ dropdownMenu, setDropdownMenu }) => {
+  // const [dropdownMenu, setDropdownMenu] = useState(false);
 
   const user = useSelector((state) => state.user);
   const host = useSelector((state) => state.host);
@@ -53,7 +53,7 @@ const Navbar = () => {
           </ul>
         </div>
         <div style={{ display: "flex", gap: "2rem" }}>
-          <div className="navbar_search">
+          {/* <div className="navbar_search">
             <input
               type="text"
               placeholder="Destination..."
@@ -68,7 +68,29 @@ const Navbar = () => {
                 }}
               />
             </IconButton>
-          </div>
+          </div> */}
+          <form
+            className="navbar_search"
+            onSubmit={(e) => {
+              e.preventDefault();
+              navigate(`/properties/search/${search}`);
+            }}
+          >
+            <input
+              type="text"
+              placeholder="Destination..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+            <IconButton disabled={search === ""}>
+              <Search
+                sx={{ color: "#66cccc" }}
+                onClick={() => {
+                  navigate(`/properties/search/${search}`);
+                }}
+              />
+            </IconButton>
+          </form>
 
           <div className="navbar_right">
             {host ? (
@@ -83,7 +105,10 @@ const Navbar = () => {
 
             <button
               className="navbar_right_account"
-              onClick={() => setDropdownMenu(!dropdownMenu)}
+              onClick={(e) => {
+                e.stopPropagation();
+                setDropdownMenu(!dropdownMenu);
+              }}
             >
               <Menu sx={{ color: variables.darkgrey }} />
               {!user ? (
