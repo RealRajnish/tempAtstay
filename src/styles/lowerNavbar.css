@@ -83,3 +83,7 @@
     font-weight: bold;
   }
 }
+
+.carousel-1 {
+  transition: all 5s;
+}

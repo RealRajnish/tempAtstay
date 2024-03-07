@@ -18,12 +18,15 @@ import BookingPage from "./pages/booking/BookingPage";
 import BookingForm from "./pages/booking/BookingForm";
 import CartDetailsPage from "./pages/temp/CartDetailsPage";
 import Invoice from "./pages/temp/invoice";
+import { useState } from "react";
 
 function App() {
+  const [dropdownMenu, setDropdownMenu] = useState(false);
+
   return (
-    <div>
+    <div onClick={() => setDropdownMenu(false)}>
       <BrowserRouter>
-        <Navbar />
+        <Navbar dropdownMenu={dropdownMenu} setDropdownMenu={setDropdownMenu} />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/register" element={<RegisterPage />} />

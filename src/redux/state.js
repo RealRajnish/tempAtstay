@@ -5,6 +5,7 @@ const initialState = {
   token: null,
   host: null,
   bookingData: null,
+  tempHost: null,
 };
 
 export const userSlice = createSlice({
@@ -44,6 +45,9 @@ export const userSlice = createSlice({
     setHostData: (state, action) => {
       state.host = action.payload.host;
     },
+    setTempHostData: (state, action) => {
+      state.tempHost = action.payload.tempHost;
+    },
     setBookingData: (state, action) => {
       state.bookingData = action.payload.bookingData;
     },
@@ -62,5 +66,6 @@ export const {
   setHostLogout,
   setHostData,
   setBookingData,
+  setTempHostData,
 } = userSlice.actions;
 export default userSlice.reducer;
