@@ -246,7 +246,7 @@ const ListingDetails = () => {
     <>
       <div className="listing-details">
         <div className="title">
-          <h1>{listing.title}</h1>
+          <h1>{listing && listing.title}</h1>
         </div>
 
         <div className="photos">
@@ -324,7 +324,7 @@ const ListingDetails = () => {
               )}
 
               <div
-                className="div"
+                className="div room-type"
                 style={{ display: listing.type === "Rooms" ? "" : "none" }}
               >
                 <button onClick={() => setSelectedRoom("single")}>

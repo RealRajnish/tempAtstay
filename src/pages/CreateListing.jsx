@@ -579,44 +579,48 @@ const CreateListing = () => {
               <div>
                 <div
                   className="roomPrices"
-                  style={{ display: type === "An entire place" ? "none" : "" }}
+                  style={{
+                    display: type === "An entire place" ? "none" : "flex",
+                  }}
                 >
                   <p>Select Rooms with Price</p>
-                  <div className="rooms">
-                    <label htmlFor="standard">Standard</label>
-                    <input
-                      type="number"
-                      placeholder="Enter per night price"
-                      name="price"
-                      className="price"
-                      id="standard"
-                      value={standardRoom}
-                      onChange={(e) => setStandardRoom(e.target.value)}
-                    />
-                  </div>
-                  <div className="rooms">
-                    <label htmlFor="double">Double</label>
-                    <input
-                      type="number"
-                      placeholder="Enter per night price"
-                      name="price"
-                      className="price"
-                      id="double"
-                      value={doubleRoom}
-                      onChange={(e) => setDoubleRoom(e.target.value)}
-                    />
-                  </div>
-                  <div className="rooms">
-                    <label htmlFor="deluxe">Delux</label>
-                    <input
-                      type="number"
-                      placeholder="Enter per night price"
-                      name="price"
-                      className="price"
-                      id="deluxe"
-                      value={deluxeRoom}
-                      onChange={(e) => setDeluxeRoom(e.target.value)}
-                    />
+                  <div className="room-price-container">
+                    <div className="rooms">
+                      <label htmlFor="standard">Standard</label>
+                      <input
+                        type="number"
+                        placeholder="Enter per night price"
+                        name="price"
+                        className="price"
+                        id="standard"
+                        value={standardRoom}
+                        onChange={(e) => setStandardRoom(e.target.value)}
+                      />
+                    </div>
+                    <div className="rooms">
+                      <label htmlFor="double">Double</label>
+                      <input
+                        type="number"
+                        placeholder="Enter per night price"
+                        name="price"
+                        className="price"
+                        id="double"
+                        value={doubleRoom}
+                        onChange={(e) => setDoubleRoom(e.target.value)}
+                      />
+                    </div>
+                    <div className="rooms">
+                      <label htmlFor="deluxe">Delux</label>
+                      <input
+                        type="number"
+                        placeholder="Enter per night price"
+                        name="price"
+                        className="price"
+                        id="deluxe"
+                        value={deluxeRoom}
+                        onChange={(e) => setDeluxeRoom(e.target.value)}
+                      />
+                    </div>
                   </div>
                   {/*  {roomTypes.map((room, index) => (
                     <div className="rooms" key={index}>

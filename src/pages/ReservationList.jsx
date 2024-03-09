@@ -5,7 +5,7 @@ import Navbar from "../components/Navbar";
 import { useDispatch, useSelector } from "react-redux";
 import { setReservationList } from "../redux/state";
 import ListingCard from "../components/ListingCard";
-import Footer from "../components/Footer"
+import Footer from "../components/Footer";
 
 const ReservationList = () => {
   const [loading, setLoading] = useState(true);
@@ -15,9 +15,10 @@ const ReservationList = () => {
   const dispatch = useDispatch();
 
   const getReservationList = async () => {
+    console.log("userid", userId);
     try {
       const response = await fetch(
-        `http://localhost:3001/users/${userId}/reservations`,
+        `http://localhost:5000/users/${userId}/reservations`,
         {
           method: "GET",
         }
@@ -39,24 +40,33 @@ const ReservationList = () => {
     <Loader />
   ) : (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
       <h1 className="title-list">Your Reservation List</h1>
       <div className="list">
-        {reservationList?.map(({ listingId, hostId, startDate, endDate, totalPrice, booking=true }) => (
-          <ListingCard
-            listingId={listingId._id}
-            creator={hostId._id}
-            listingPhotoPaths={listingId.listingPhotoPaths}
-            city={listingId.city}
-            province={listingId.province}
-            country={listingId.country}
-            category={listingId.category}
-            startDate={startDate}
-            endDate={endDate}
-            totalPrice={totalPrice}
-            booking={booking}
-          />
-        ))}
+        {reservationList?.map(
+          ({
+            listingId,
+            hostId,
+            startDate,
+            endDate,
+            totalPrice,
+            booking = true,
+          }) => (
+            <ListingCard
+              listingId={listingId._id}
+              creator={hostId._id}
+              listingPhotoPaths={listingId.listingPhotoPaths}
+              city={listingId.city}
+              province={listingId.province}
+              country={listingId.country}
+              category={listingId.category}
+              startDate={startDate}
+              endDate={endDate}
+              totalPrice={totalPrice}
+              booking={booking}
+            />
+          )
+        )}
       </div>
       <Footer />
     </>

@@ -398,3 +398,17 @@
   width: 300px !important;
   height: 300px !important;
 }
+
+.roomPrices {
+  flex-direction: column;
+  .room-price-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    .rooms {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+  }
+}

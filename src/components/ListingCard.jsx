@@ -25,6 +25,7 @@ const ListingCard = ({
   totalPrice,
   booking,
   photo,
+  rooms,
 }) => {
   /* SLIDER FOR IMAGES */
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -120,7 +121,10 @@ const ListingCard = ({
         <>
           <p>{type}</p>
           <p>
-            <span>${price}</span> per night
+            <span>
+              Rs. {type === "Rooms" ? rooms && rooms[0].price : price}
+            </span>{" "}
+            per night
           </p>
         </>
       ) : (
