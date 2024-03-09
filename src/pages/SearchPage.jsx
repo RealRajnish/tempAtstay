@@ -53,9 +53,10 @@ const SearchPage = () => {
             type,
             price,
             booking = false,
+            hotelId,
           }) => (
             <ListingCard
-              listingId={_id}
+              listingId={hotelId}
               creator={creator}
               listingPhotoPaths={listingPhotoPaths}
               city={city}

@@ -137,7 +137,7 @@ const Navbar = ({ dropdownMenu, setDropdownMenu }) => {
               <div className="navbar_right_accountmenu">
                 <Link to={`/${user._id}/trips`}>Trip List</Link>
                 <Link to={`/${user._id}/wishList`}>Wish List</Link>
-                <Link to={`/${user._id}/properties`}>Property List</Link>
+                {/* <Link to={`/${user._id}/properties`}>Property List</Link> */}
                 <Link to={`/${user._id}/reservations`}>Reservation List</Link>
                 <Link to="/create-listing">Become A Host</Link>
 

@@ -77,6 +77,7 @@ const Listings = () => {
               type,
               price,
               booking = false,
+              rooms,
             }) => (
               <ListingCard
                 listingId={hotelId}
@@ -89,6 +90,7 @@ const Listings = () => {
                 type={type}
                 price={price}
                 booking={booking}
+                rooms={rooms}
               />
             )
           )}
