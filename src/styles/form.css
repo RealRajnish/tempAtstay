@@ -113,3 +113,16 @@ button:hover {
     width: 100%;
   }
 }
+
+#form-container {
+  z-index: 2000;
+  align-items: center;
+  justify-content: center;
+}
+#form-container .inner-div {
+  display: flex;
+  align-items: center;
+}
+#form-container .inner-div form {
+  padding: 1rem;
+}

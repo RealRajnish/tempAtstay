@@ -6,19 +6,19 @@ import { useSelector, useDispatch } from "react-redux";
 import { setListings } from "../redux/state";
 import Loader from "../components/Loader";
 import ListingCard from "../components/ListingCard";
-import Footer from "../components/Footer"
+import Footer from "../components/Footer";
 
 const CategoryPage = () => {
   const [loading, setLoading] = useState(true);
-  const { category } = useParams()
+  const { category } = useParams();
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const listings = useSelector((state) => state.listings);
 
   const getFeedListings = async () => {
     try {
       const response = await fetch(
-          `http://localhost:3001/properties?category=${category}`,
+        `http://localhost:5000/properties?category=${category}`,
         {
           method: "GET",
         }
@@ -26,6 +26,7 @@ const CategoryPage = () => {
 
       const data = await response.json();
       dispatch(setListings({ listings: data }));
+      console.log("category listing", listings);
       setLoading(false);
     } catch (err) {
       console.log("Fetch Listings Failed", err.message);
@@ -40,7 +41,7 @@ const CategoryPage = () => {
     <Loader />
   ) : (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
       <h1 className="title-list">{category} listings</h1>
       <div className="list">
         {listings?.map(
@@ -55,9 +56,10 @@ const CategoryPage = () => {
             type,
             price,
             booking = false,
+            hotelId,
           }) => (
             <ListingCard
-              listingId={_id}
+              listingId={hotelId}
               creator={creator}
               listingPhotoPaths={listingPhotoPaths}
               city={city}

@@ -8,6 +8,10 @@
   align-items: center;
   position: relative;
   gap: 3rem;
+  position: sticky !important;
+  top: 0;
+  z-index: 1000;
+  background: white;
 
   @include sm {
     padding: 10px 20px;

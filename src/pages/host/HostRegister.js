@@ -73,13 +73,20 @@ const HostRegister = () => {
             name="lastName"
             value={formData.lastName}
             onChange={handleChange}
-            required
           />
           <input
             placeholder="Email"
             name="email"
             type="email"
             value={formData.email}
+            onChange={handleChange}
+            required
+          />
+          <input
+            placeholder="contact"
+            name="contact"
+            type="string"
+            value={formData.contact}
             onChange={handleChange}
             required
           />

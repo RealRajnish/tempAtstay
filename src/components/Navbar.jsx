@@ -52,7 +52,10 @@ const Navbar = ({ dropdownMenu, setDropdownMenu }) => {
             </li>
           </ul>
         </div>
-        <div style={{ display: "flex", gap: "2rem" }}>
+        <div
+          className="search-container"
+          style={{ display: "flex", gap: "2rem", alignItems: "center" }}
+        >
           {/* <div className="navbar_search">
             <input
               type="text"

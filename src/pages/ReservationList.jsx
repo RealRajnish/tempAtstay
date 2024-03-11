@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { setReservationList } from "../redux/state";
 import ListingCard from "../components/ListingCard";
 import Footer from "../components/Footer";
+import axios from "axios";
+import { API_3 } from "../api/api";
 
 const ReservationList = () => {
   const [loading, setLoading] = useState(true);
@@ -13,6 +15,13 @@ const ReservationList = () => {
   const reservationList = useSelector((state) => state.user.reservationList);
 
   const dispatch = useDispatch();
+  const getReservationList1 = async () => {
+    try {
+      const response = await axios.post(`${API_3}`, {
+        id: userId,
+      });
+    } catch (error) {}
+  };
 
   const getReservationList = async () => {
     console.log("userid", userId);
