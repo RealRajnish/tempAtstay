@@ -16,6 +16,20 @@ import { API_4 } from "../api/api";
 const CreateListing = () => {
   const [category, setCategory] = useState("");
   const [type, setType] = useState("");
+  const [pincode, setPincode] = useState("");
+  const [error, setError] = useState("");
+
+  const handleChange = (event) => {
+    const inputValue = event.target.value;
+    setPincode(inputValue);
+
+    // Check for minimum and maximum length constraints
+    if (inputValue.length !== 6) {
+      setError("Pincode must be 6 digits long.");
+    } else {
+      setError("");
+    }
+  };
 
   /* LOCATION */
   const [formLocation, setFormLocation] = useState({
@@ -161,42 +175,48 @@ const CreateListing = () => {
   const tempFunc = async (e) => {
     e.preventDefault();
     try {
-      const listingForm = new FormData();
-      listingForm.append("hostId", creatorId);
-      listingForm.append("category", category);
-      listingForm.append("type", type);
-      listingForm.append("streetAddress", formLocation.streetAddress);
-      listingForm.append("city", formLocation.city);
-      listingForm.append("province", formLocation.province);
-      listingForm.append("country", formLocation.country);
-      listingForm.append("amenities", amenities);
-      listingForm.append("title", formDescription.title);
-      listingForm.append("description", formDescription.description);
-      listingForm.append("highlight", formDescription.highlight);
-      listingForm.append("highlightDesc", formDescription.highlightDesc);
-      // listingForm.append("rooms", roomTypes);
-      listingForm.append("price", formDescription.price);
-      listingForm.append("guestCount", guestCount);
-      listingForm.append("bedroomCount", bedroomCount);
-      listingForm.append("bedCount", bedCount);
-      listingForm.append("bathroomCount", bathroomCount);
-      listingForm.append("singleRoom", standardRoom);
-      listingForm.append("doubleRoom", doubleRoom);
-      listingForm.append("deluxeRoom", deluxeRoom);
-      photos.forEach((photo) => {
-        listingForm.append("listingPhotos", photo);
-      });
+      if (pincode.length === 6) {
+        const listingForm = new FormData();
+        listingForm.append("hostId", creatorId);
+        listingForm.append("category", category);
+        listingForm.append("type", type);
+        listingForm.append("streetAddress", formLocation.streetAddress);
+        listingForm.append("city", formLocation.city);
+        listingForm.append("province", formLocation.province);
+        listingForm.append("country", formLocation.country);
+        listingForm.append("amenities", amenities);
+        listingForm.append("title", formDescription.title);
+        listingForm.append("description", formDescription.description);
+        listingForm.append("highlight", formDescription.highlight);
+        listingForm.append("highlightDesc", formDescription.highlightDesc);
+        // listingForm.append("rooms", roomTypes);
+        listingForm.append("price", formDescription.price);
+        listingForm.append("guestCount", guestCount);
+        listingForm.append("bedroomCount", bedroomCount);
+        listingForm.append("bedCount", bedCount);
+        listingForm.append("bathroomCount", bathroomCount);
+        listingForm.append("singleRoom", standardRoom || 0);
+        listingForm.append("doubleRoom", doubleRoom || 0);
+        listingForm.append("deluxeRoom", deluxeRoom || 0);
+        listingForm.append("pincode", pincode);
+        photos.forEach((photo) => {
+          listingForm.append("listingPhotos", photo);
+        });
 
-      for (const [key, value] of listingForm.entries()) {
-        console.log(key + ": " + value);
+        for (const [key, value] of listingForm.entries()) {
+          console.log(key + ": " + value);
+        }
+        // console.log("rooms", roomTypes);
+
+        const response = await fetch(API_4, {
+          method: "POST",
+          body: listingForm,
+        });
+        console.log(response);
+        if (response.ok) {
+          navigate("/");
+        }
       }
-      // console.log("rooms", roomTypes);
-
-      const response = await fetch(API_4, {
-        method: "POST",
-        body: listingForm,
-      });
-      console.log(response);
     } catch (error) {
       console.log(error);
     }
@@ -297,6 +317,18 @@ const CreateListing = () => {
                   onChange={handleChangeLocation}
                   required
                 />
+              </div>
+              <div className="location">
+                <p>Pincode</p>
+                <input
+                  type="number"
+                  placeholder="pincode"
+                  name="pincode"
+                  value={pincode}
+                  onChange={handleChange}
+                  required
+                />
+                {error && <p style={{ color: "red" }}>{error}</p>}
               </div>
               <div className="location">
                 <p>Country</p>

@@ -99,3 +99,9 @@
     }
   }
 }
+@media screen and (min-width: 431px) and (max-width: 1000px) {
+  .footer {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}

@@ -11,6 +11,7 @@ const RegisterPage = () => {
     password: "",
     confirmPassword: "",
     profileImage: null,
+    contact: null,
   });
 
   const handleChange = (e) => {
@@ -36,23 +37,34 @@ const RegisterPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      const register_form = new FormData();
+    if (formData.contact.toString().length === 10) {
+      try {
+        const register_form = new FormData();
 
-      for (var key in formData) {
-        register_form.append(key, formData[key]);
-      }
-      console.log(register_form);
-      const response = await fetch(API_2, {
-        method: "POST",
-        body: register_form,
-      });
+        for (var key in formData) {
+          console.log("key", key);
+          register_form.append(key, formData[key]);
+        }
+        console.log(register_form);
+        // Assuming register_form is your FormData object
+        for (const pair of register_form.entries()) {
+          const [name, value] = pair;
+          console.log(`Field name: ${name}, Field value: ${value}`);
+        }
+        const response = await fetch(API_2, {
+          method: "POST",
+          body: register_form,
+        });
 
-      if (response.ok) {
-        navigate("/login");
+        if (response.ok) {
+          navigate("/login");
+        }
+      } catch (err) {
+        console.log("Registration failed", err.message);
+        window.alert("please enter proper values");
       }
-    } catch (err) {
-      console.log("Registration failed", err.message);
+    } else {
+      window.alert("please enter correct 10 digit mobile number");
     }
   };
 
@@ -82,6 +94,16 @@ const RegisterPage = () => {
             value={formData.email}
             onChange={handleChange}
             required
+          />
+          <input
+            placeholder="Enter 10 digit contact number"
+            name="contact"
+            type="number"
+            value={formData.contact}
+            onChange={handleChange}
+            required
+            minLength={10}
+            maxLength={10}
           />
           <input
             placeholder="Password"

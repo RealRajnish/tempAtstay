@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import html2pdf from "html2pdf.js";
 // import logo from "../images/atstaylogo.webp";
 import "./invoice.css";
-import { API_19 } from "../../api/api";
+import { API_19, API_3 } from "../../api/api";
 import { useSelector } from "react-redux";
 
 function Invoice() {
   const bookingData = useSelector((state) => state.bookingData);
+  const tempHost = useSelector((state) => state.tempHost);
   const user = useSelector((state) => state.user);
   console.log("user", user);
   console.log("bookingData", bookingData);
@@ -42,6 +43,7 @@ function Invoice() {
         body: JSON.stringify({
           clientEmail: mail,
           invoiceHTML: invoiceHTML,
+          hostEmail: tempHost.email,
         }),
       });
       console.log("kkkkk");
@@ -85,8 +87,10 @@ function Invoice() {
         >
           <img
             src="/assets/logo.webp"
-            height="50px"
-            width="50px"
+            // src={`${API_3}assets/logo.webp`}
+            // src="https://atstay.in/static/media/atstaylogo.906f76c7ef404c420b3b.webp"
+            height="80px"
+            width="80px"
             style={{ textAlign: "left" }}
           />
           <tr style={{ textAlign: "left", height: "100px" }}>
@@ -105,7 +109,8 @@ function Invoice() {
               <br />
               Invoice Date # {date1}
               <br />
-              Invoice Amount # ₹{amount}.00 (INR)
+              Invoice Amount # ₹
+              {bookingData.dayCount * bookingData.perRoomPrice}.00 (INR)
               <br />
               Order Nr. # {mmmm}
               <br />
@@ -117,17 +122,18 @@ function Invoice() {
             <th>
               BILLED TO
               <br />
-              {namess}
+              {bookingData.clientName}
               <br />
               IN19CCDPD5287P1ZY
               <br />
-              {add}
+              {bookingData.add + " " + bookingData.pin}
               <br />
               India
               <br />
-              {mail}
+              {bookingData.email}
               <br />
-              {phone}
+              {bookingData.phone}
+              Booking No: {bookingData.bookingNo}
             </th>
           </tr>
         </table>
@@ -188,7 +194,7 @@ function Invoice() {
                 padding: "15px",
               }}
             >
-              {trips}
+              {bookingData.listing.title}
             </th>
             <th
               className="jsm"
@@ -198,7 +204,7 @@ function Invoice() {
                 padding: "15px",
               }}
             >
-              {amount}
+              {bookingData.dayCount * bookingData.perRoomPrice}
             </th>
             <th
               className="jsm"
@@ -218,7 +224,7 @@ function Invoice() {
                 padding: "15px",
               }}
             >
-              {amount}
+              {bookingData.dayCount * bookingData.perRoomPrice}
             </th>
           </tr>
 
@@ -257,7 +263,7 @@ function Invoice() {
                 padding: "15px",
               }}
             >
-              ₹{amount}.00 (INR)
+              ₹{bookingData.dayCount * bookingData.perRoomPrice}.00 (INR)
             </th>
           </tr>
         </table>
